@@ -24,6 +24,8 @@ print ("pull statcast done")
 pitchStatcast = pandas.read_csv("pybaseballCSV.csv")
 pitchStatcast = pitchStatcast[['game_date','pitch_type','release_speed','pfx_x','pfx_z','release_spin_rate','description','launch_speed','launch_speed_angle']]
 pitchFailureDesc = ['ball','hit_by_pitch']
+pitchStatcast.to_csv('pybaseballCSVExpanded.csv')
+print ("expanded data done")
 successfulPitchStatcast = pitchStatcast[~pitchStatcast['description'].str.contains('|'.join(pitchFailureDesc))]
 successfulPitchStatcast = successfulPitchStatcast[(successfulPitchStatcast['launch_speed_angle'] < 5) | successfulPitchStatcast.launch_speed_angle.isnull()]
 successfulPitchStatcast.to_csv('pybaseballCSVSuccessful.csv')

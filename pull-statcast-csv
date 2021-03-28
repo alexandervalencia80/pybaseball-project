@@ -5,7 +5,7 @@ import csv
 from functools import reduce
 
 list_months = ['03','04','05','06','07','08','09','10','11','12']
-list_years = ['15','16','17','18','19','20']
+list_years = ['17','18','19']
 
 list_dfs = []
 
@@ -19,3 +19,12 @@ for year in list_years:
 finalDf = pandas.concat(list_dfs)
 finalDf = finalDf.drop_duplicates()
 finalDf.to_csv('pybaseballCSV.csv')
+print ("pull statcast done")
+
+pitchStatcast = pandas.read_csv("pybaseballCSV.csv")
+pitchStatcast = pitchStatcast[['game_date','pitch_type','release_speed','pfx_x','pfx_z','release_spin_rate','description','launch_speed','launch_speed_angle']]
+pitchFailureDesc = ['ball','hit_by_pitch']
+successfulPitchStatcast = pitchStatcast[~pitchStatcast['description'].str.contains('|'.join(pitchFailureDesc))]
+successfulPitchStatcast = successfulPitchStatcast[(successfulPitchStatcast['launch_speed_angle'] < 5) | successfulPitchStatcast.launch_speed_angle.isnull()]
+successfulPitchStatcast.to_csv('pybaseballCSVSuccessful.csv')
+print ("clean data done")

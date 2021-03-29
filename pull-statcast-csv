@@ -28,5 +28,12 @@ pitchStatcast.to_csv('pybaseballCSVExpanded.csv')
 print ("expanded data done")
 successfulPitchStatcast = pitchStatcast[~pitchStatcast['description'].str.contains('|'.join(pitchFailureDesc))]
 successfulPitchStatcast = successfulPitchStatcast[(successfulPitchStatcast['launch_speed_angle'] < 5) | successfulPitchStatcast.launch_speed_angle.isnull()]
+successfulPitchStatcast = successfulPitchStatcast[(successfulPitchStatcast['launch_speed'] > 10) | successfulPitchStatcast.launch_speed.isnull()]
+successfulPitchStatcast = successfulPitchStatcast[successfulPitchStatcast['release_speed'] > 75]                                                   
 successfulPitchStatcast.to_csv('pybaseballCSVSuccessful.csv')
-print ("clean data done")
+print ("successful data done")
+unSuccessfulPitchStatcast = pitchStatcast[pitchStatcast['launch_speed_angle'] > 4 | pitchStatcast.launch_speed_angle.isnull()]
+unSuccessfulPitchStatcast = unSuccessfulPitchStatcast[unSuccessfulPitchStatcast['launch_speed'] > 10 | unSuccessfulPitchStatcast.launch_speed.isnull()]
+unSuccessfulPitchStatcast = unSuccessfulPitchStatcast[unSuccessfulPitchStatcast['release_speed'] < 75]
+unSuccessfulPitchStatcast.to_csv('pybaseballCSVUnsuccessful.csv')
+print ("unsuccessful data done")

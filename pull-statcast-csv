@@ -22,7 +22,7 @@ finalDf.to_csv('pybaseballCSV.csv')
 print ("pull statcast done")
 
 pitchStatcast = pandas.read_csv("pybaseballCSV.csv")
-pitchStatcast = pitchStatcast[['game_date','pitch_type','release_speed','pfx_x','pfx_z','release_spin_rate','description','launch_speed','launch_speed_angle']]
+pitchStatcast = pitchStatcast[['game_date','pitch_type','release_speed','pfx_x','pfx_z','plate_x','plate_z','release_spin_rate','description','launch_speed','launch_speed_angle']]
 pitchFailureDesc = ['ball','hit_by_pitch']
 pitchStatcast.to_csv('pybaseballCSVExpanded.csv')
 print ("expanded data done")
